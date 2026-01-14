@@ -1,0 +1,117 @@
+/* Reel Feed Container */
+.reel-feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Each Reel Video */
+.reel-video {
+    background-color: #000; /* Instagram-style */
+    border-radius: 10px;
+    height: 90vh;
+    width: 100%;
+    max-width: 350px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+/* Video Element */
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Description Overlay */
+.descriptions {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    max-width: 90%;
+}
+
+.descriptions h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.descriptions p {
+    margin: 5px 0 0;
+    font-size: 1em;
+}
+
+/* ---------- Responsive Design ---------- */
+
+/* Tablets */
+@media (max-width: 1024px) {
+    .reel-feed {
+        max-width: 80%;
+    }
+
+    .reel-video {
+        max-width: 100%;
+        height: 80vh;
+    }
+}
+
+/* Mobiles */
+@media (max-width: 768px) {
+    .reel-feed {
+        max-width: 95%;
+        padding: 5px;
+    }
+
+    .reel-video {
+        height: 70vh;
+    }
+
+    .descriptions h3 {
+        font-size: 1em;
+    }
+
+    .descriptions p {
+        font-size: 0.9em;
+    }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+    .reel-feed {
+        width: 100%;
+        padding: 0;
+    }
+
+    .reel-video {
+        height: 60vh;
+        border-radius: 8px;
+    }
+
+    .video {
+        border-radius: 8px;
+    }
+
+    .descriptions {
+        bottom: 10px;
+        left: 8px;
+    }
+
+    .descriptions h3 {
+        font-size: 0.95em;
+    }
+
+    .descriptions p {
+        font-size: 0.8em;
+    }
+}
