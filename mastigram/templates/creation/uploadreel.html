@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/uploads.css" %}"
+{% endblock %}
+{% block content %}
+<div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="reel">Upload video</label>
+            <input type="file" id="reel" name="reel" accept="video/*" class="form-control">
+            <label for="caption">Caption</label>
+            <textarea id="caption" name="caption" class="form-control" rows="4"></textarea>
+            <div class="button-container">
+                <button type="submit" class="bt" name="upload"> Upload </button>
+                <button type="submit" class="bte" name="discard"> Discard </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

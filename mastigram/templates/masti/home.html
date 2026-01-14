@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+
+<section class="storeies">
+    <h2> Stories  </h2>
+    <ul class="story-container">
+        <li class="story"> 
+            <img src="https://placehold.co/100" alt="Story Image" >
+            <p> @user1 </p>
+        </li>
+        <li class="story"> 
+            <img src="https://placehold.co/100" alt="Story Image" >
+            <p> @user2 </p>
+        </li>
+        <li class="story"> 
+            <img src="https://placehold.co/100" alt="Story Image" >
+            <p> @user3 </p>
+        </li>
+    </ul>
+</section>
+
+<section class="feed">
+    <h4> Recommended </h4>
+    {% for post in posts %}
+    <div class="img">
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Post-image" class="Post-img">
+        {% else %}
+            <img src="https://placehold.co/400" alt="Default Post">
+        {% endif %}
+        <div class="description">
+            <div class="modal-icon">
+                <i class="fas fa-heart"></i>
+
+                <!-- Comment -->
+                <i class="fas fa-comment"></i>
+
+                <!-- Share -->
+                <i class="fas fa-share"></i>
+            </div>
+            <h3> @username </h3>
+            <p>{{ post.description }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+{% endblock %}

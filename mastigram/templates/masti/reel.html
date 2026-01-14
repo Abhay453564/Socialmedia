@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/reel.css' %}">
+{% endblock %}
+{% block content %}
+
+<section class="reel-feed">
+    <h4> Reels </h4>
+    {% for video in reele %}
+    <div class="reel-video">
+        {% if video.reel %}
+        <video controls muted playsinline controlsList="nofullscreen nodownload" class="video">
+            <source src="{{ video.reel.url }}" type="video/mp4" alt="Reel-video">
+                Your browser does not support the video tag
+        </video>
+        {% else %}
+            <p> Error, Retry or try again later </p>
+        {% endif %}
+        <div class="descriptions">
+            <h3> @username </h3>
+            <p>{{ video.caption }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const reels = document.querySelectorAll(".reel-video");
+    let currentIndex = 0;
+
+    function scrollToReel(index) {
+        reels[index].scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Arrow keys navigation
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowDown") {
+            if (currentIndex < reels.length - 1) {
+                currentIndex++;
+                scrollToReel(currentIndex);
+            }
+        } else if (e.key === "ArrowUp") {
+            if (currentIndex > 0) {
+                currentIndex--;
+                scrollToReel(currentIndex);
+            }
+        }
+    });
+
+    // Autoplay logic using Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target.querySelector("video");
+            if (entry.isIntersecting) {
+                video.play().catch(() => {}); // play video when visible
+            } else {
+                video.pause(); // pause when not visible
+            }
+        });
+    }, { threshold: 0.6 }); // 60% of video must be visible
+
+    reels.forEach(reel => observer.observe(reel));
+});
+
+
+</script>
+
+
+{% endblock %}

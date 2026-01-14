@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/uploads.css" %}"
+{% endblock %}
+{% block content %}
+<div>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="story">Upload story</label>
+            <input type="file" id="story" name="story" class="form-control">
+            <div class="button-container">
+                <button type="submit" class="bt" name="upload"> Upload </button>
+                <button type="submit" class="bte" name="discard"> Discard </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

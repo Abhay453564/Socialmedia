@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="search-container">
+    <form action="{% url 'post_list' %}" method="get">
+        <input 
+            type="text" 
+            class="search-box" 
+            placeholder="Search..." 
+            name="q" 
+            value="{{ query|default:'' }}"
+        >
+        <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+</div>
+
+<section class="post-feed">
+  {% if img %}
+    {% for image in img %}
+    <div class="post-img">
+        {% if image.image %}
+            <img src="{{ image.image.url }}"  alt="Post-image" class="images" data-username="@username"
+       data-caption="{{ image.description }}">
+        {% else %}
+            <img src="https://placehold.co/400" alt="Default Post">
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+  <p>No posts found for "{{ query }}".</p>
+{% endif %}
+
+  <div id="imageModal" class="modal">
+    <img class="modal-content" id="modalImg">
+    <div class="modal-content-box">
+
+          <!-- Icons -->
+      <div class="modal-icons">
+        <i class="fas fa-heart"></i>
+
+        <!-- Comment -->
+        <i class="fas fa-comment"></i>
+
+        <!-- Share -->
+        <i class="fas fa-share"></i>
+      </div>
+
+    <!-- Info section -->
+      <div class="modal-info">
+        <h3 id="modalUsername">@username</h3>
+        <p id="modalCaption"></p>
+      </div>
+
+    <!-- Close button -->
+    <span class="close">&times;</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- CDN version -->
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"
+        onerror="loadLocalMasonry()"></script>
+
+<script>
+  var elem = document.querySelector('.post-feed');
+  var msnry = new Masonry( elem, {
+    itemSelector: '.post-img',
+    columnWidth: '.post-img',
+    percentPosition: true,
+    gutter: 15
+  });
+  
+
+  // Get modal and image elements
+var modal = document.getElementById("imageModal");
+var modalImg = document.getElementById("modalImg");
+var modalUsername = document.getElementById("modalUsername");
+var modalCaption = document.getElementById("modalCaption");
+var closeBtn = document.querySelector(".close");
+
+// Loop through all post images
+document.querySelectorAll(".post-img img").forEach(function(img) {
+  img.addEventListener("click", function() {
+    modal.style.display = "block";   // show modal
+    modalImg.src = this.src;  // set clicked image
+    modalUsername.innerText = this.dataset.username;
+    modalCaption.innerText = this.dataset.caption;
+  });
+});
+
+// Close modal on X click
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+};
+
+// Close modal when clicking outside image
+modal.onclick = function(e) {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+};
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastigram</title>
+    <link rel="stylesheet" href="{% static 'layout/layout.css' %}"> <!-- External CSS Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="nav">
+        <div class="nav-left">
+        <span class="logo">Mastigram</span>
+        <div class="left">
+            <a href="{% url 'profile_page' %}" class="profil-btn">
+                <i class="fas fa-user-circle profile-icon"></i>
+            </a>
+            <a href="#" class="logout-btn">
+                <i class="fas fa-sign-out-alt logout-icon"></i>
+            </a>
+        </div>
+        </div>
+        
+    <!--for actual nav in large screen -->
+    <div class="nav-center">
+        <div class="dropdown">
+            <button class="dropbtn" tabindex="0">+</button>
+            <div class="dropdown-content">
+                <a href="{% url 'uploadreel' %}">Create Reel</a>
+                <a href="{% url 'uploadpost' %}">Create Post</a>
+                <a href="{% url 'uploadstory' %}">Create Story</a>
+                <a href="{% url 'uploadvideo' %}">Create Video</a>
+            </div>
+        </div>
+    </div>
+    <div class="nav-right">
+        <ul>
+            <li><a href="{% url 'home_page' %}">Home</a></li> 
+            <li><a href="{% url 'reel_page' %}">Reel</a></li>
+            <li><a href="{% url 'post_page' %}">Post</a></li>
+            <li><a href="{% url 'video_page' %}">Video</a></li>
+        </ul>
+    </div>
+    </nav>
+    <div class="content">
+    {% block content %}
+
+    {% endblock %}
+    </div>
+    <!-- Footer -->
+<footer id="footer">
+    <p class="footer-text">&copy; 2025 Mastigram. All rights reserved.</p>
+  <div class="footer-menu">
+    <a href="{% url 'home_page' %}" class="footer-icon">
+      <i class="fas fa-home"></i>
+    </a>
+    <a href="{% url 'post_page' %}" class="footer-icon">
+      <i class="fas fa-images"></i>
+    </a>
+    <a href="#" class="footer-icon create-icon">
+      <i class="fas fa-plus-circle"></i>
+    </a>
+    <a href="{% url 'reel_page' %}" class="footer-icon">
+      <i class="fas fa-film"></i>
+    </a>
+    <a href="#" class="footer-icon">
+      <i class="fas fa-video"></i>
+    </a>
+  </div>
+</footer>
+
+
+    <!-- javascript -->
+
+<script>
+let lastScrollTop = 0;
+const footer = document.getElementById("footer");
+if (window.innerWidth > 992) {
+  window.addEventListener("scroll", function() {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll < lastScrollTop) {
+      footer.classList.remove("hide");
+    } else {
+      footer.classList.add("hide");
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
+}
+
+
+</script>
+
+</body>
+</html>
